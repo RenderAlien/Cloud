@@ -30,23 +30,33 @@ export default {
   <div v-else-if="store.my_status == 'worker'" class="row general">
 
     <div class="sidebar">
-      <div class="logo">Облако</div>
-      <div class="sidebar-button">Главная</div>
-      <div class="sidebar-button">Мой отдел</div>
-      <div class="sidebar-button">Отделы</div>
+      <RouterLink class="logo" to="/">Облако</RouterLink>
+      <RouterLink class="sidebar-button" to="/">Главная</RouterLink>
+      <RouterLink class="sidebar-button" to="/dep">Мой отдел</RouterLink>
+      <RouterLink class="sidebar-button" to="/deps">Отделы</RouterLink>
+      <div class="sidebar-button-add">Добавить</div>
     </div>
 
     <div class="content">
 
-      <div class="row header m-0">
+      <div class="header m-0">
         <input type="text" class="search" placeholder="Поиск..." >
+        <RouterLink class="header-profile-button" to="/profile">{{ store.my_first_name + " " + store.my_second_name[0] + "." }}</RouterLink>
       </div>
 
-      <div class="page">
-
+      <div v-if="store.current_search == null" class="page">
+        <RouterView />
       </div>
       
     </div>
 
+  </div>
+  <div v-else-if="store.my_status == 'admin'">
+    <div class="sidebar">
+      <RouterLink class="logo" to="/">Облако</RouterLink>
+      <RouterLink class="sidebar-button" to="/" style="font-size: 2vw;">Пользователи</RouterLink>
+      <RouterLink class="sidebar-button" to="/dep" style="font-size: 1.8vw;">Запросы на удаление</RouterLink>
+      <RouterLink class="sidebar-button" to="/deps" style="font-size: 2vw;">Документы</RouterLink>
+    </div>
   </div>
 </template>
