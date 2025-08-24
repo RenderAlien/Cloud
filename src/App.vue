@@ -27,12 +27,12 @@ export default {
     </div>
 
   </div>
-  <div v-else-if="store.my_status == 'worker'" class="row general">
+  <div v-else-if="store.my_status == 'worker'" class="general">
 
     <div class="sidebar">
       <RouterLink class="logo" to="/">Облако</RouterLink>
       <RouterLink class="sidebar-button" to="/">Главная</RouterLink>
-      <RouterLink class="sidebar-button" to="/dep">Мой отдел</RouterLink>
+      <RouterLink class="sidebar-button" to="/dep" @click="store.current_department_id = store.my_department_id">Мой отдел</RouterLink>
       <RouterLink class="sidebar-button" to="/deps">Отделы</RouterLink>
       <div class="sidebar-button-add">Добавить</div>
     </div>
