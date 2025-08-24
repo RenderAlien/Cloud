@@ -11,6 +11,7 @@ export const useCounterStore = defineStore('counter', {
         my_second_name: 'worker', //И
         my_third_name: 'worker', //О
         my_department_id: 0, // мой отдел
+        my_user_id: 2,
 
         //данные для работы системы
         current_department_id: null, // текущий отдел: для страницы конкрентого отдела и страницы Мой отдел
@@ -284,6 +285,13 @@ export const useCounterStore = defineStore('counter', {
                 pasword: '$2b$10$wrmUUUhh9wBj4Zce8osQOO0WIJOa2YL.gIHlUyJQUzFgHk8chIbny', // ilinevvas
                 department_id: 0
             },
+        ],
+        DeletionRequests: [
+            {
+                del_id: 0,
+                doc_id: 1,
+                user_id: 1
+            }
         ]
     }),
     getters: {
@@ -332,6 +340,21 @@ export const useCounterStore = defineStore('counter', {
             this.my_third_name = null
             this.my_department_id = null
             this.my_status = null;
+        },
+        //delete_by_doc_id: (state) => (doc_id) => {
+        //    state.Document = state.Document.filter((item) => item.doc_id != doc_id)
+        //    state.DocumentDepartment = state.DocumentDepartment.filter((item) => item.doc_id != doc_id)
+        //}
+        request_deletion(doc_id, user_id) {
+            const del_id = this.DeletionRequests[this.DeletionRequests.length-1].del_id + 1
+            this.DeletionRequests.push(
+                {
+                    del_id: del_id,
+                    doc_id: doc_id,
+                    user_id: user_id
+                }
+            )
+            console.log(this.DeletionRequests)
         }
     }
 });

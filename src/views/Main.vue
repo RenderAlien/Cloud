@@ -15,7 +15,7 @@ const store = useCounterStore();
             <div class="item-blue-button">
                 Скачать
             </div>
-            <div class="item-red-button">
+            <div class="item-red-button" @click="store.request_deletion(doc.doc_id, store.my_user_id)">
                 Удалить
             </div>
         </div>
@@ -29,7 +29,7 @@ const store = useCounterStore();
             <div class="item-blue-button">
                 Скачать
             </div>
-            <div class="item-red-button">
+            <div class="item-red-button" @click="store.request_deletion(doc.doc_id, store.my_user_id)">
                 Удалить
             </div>
         </div>
