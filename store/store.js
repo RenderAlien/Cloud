@@ -6,17 +6,18 @@ export const useCounterStore = defineStore('counter', {
         // данные пользователя
         my_email: '',
         my_password: '',
-        my_status: 'worker', // null - не авторизован, 'worker' - сотрудник, 'admin' - админ
+        my_status: 'admin', // null - не авторизован, 'worker' - сотрудник, 'admin' - админ
         my_first_name: 'worker', //Ф
         my_second_name: 'worker', //И
         my_third_name: 'worker', //О
-        my_department_id: 0, // мой отдел
-        my_user_id: 2,
+        my_department_id: 3, // мой отдел
+        my_user_id: 0,
 
         //данные для работы системы
         current_department_id: null, // текущий отдел: для страницы конкрентого отдела и страницы Мой отдел
         current_search: '', // текущий запрос в поисковике
         show_add_file_modal: false,
+        admin_current_search_placeholder: 'Поиск по пользователям...',
 
         // данные для добавления файла
         new_doc_name: '',
@@ -145,7 +146,7 @@ export const useCounterStore = defineStore('counter', {
             },
             {
                 department_id: 3,
-                name: 'Admin'
+                name: 'Администратор'
             }
         ],
         DocumentDepartment: [
@@ -328,6 +329,13 @@ export const useCounterStore = defineStore('counter', {
         },
         doc_search: (state) => (search_req) => {
             return state.Document.filter((item) => item.name.toLowerCase().includes(search_req.toLowerCase()) || item.filename.toLowerCase().includes(search_req.toLowerCase()))
+        },
+        doc_by_doc_id: (state) => (doc_id) => {
+            for (const doc of state.Document){
+                if (doc.doc_id == doc_id){
+                    return doc
+                }
+            }
         }
     },
     actions:{
@@ -356,10 +364,19 @@ export const useCounterStore = defineStore('counter', {
             this.my_department_id = null
             this.my_status = null;
         },
-        //delete_by_doc_id: (state) => (doc_id) => {
-        //    state.Document = state.Document.filter((item) => item.doc_id != doc_id)
-        //    state.DocumentDepartment = state.DocumentDepartment.filter((item) => item.doc_id != doc_id)
-        //}
+        delete_by_doc_id(doc_id) {
+            this.Document = this.Document.filter((item) => item.doc_id != doc_id)
+            this.DocumentDepartment = this.DocumentDepartment.filter((item) => item.doc_id != doc_id)
+            console.log(this.Document.length)
+        },
+        delete_by_del_id(del_id) {
+            let i = 0;
+            while(this.DeletionRequests[i].del_id != del_id){
+                i++;
+            }
+            this.delete_by_doc_id(this.DeletionRequests[i].doc_id)
+            this.DeletionRequests.pop(i);
+        },
         request_deletion(doc_id, user_id) {
             const del_id = this.DeletionRequests[this.DeletionRequests.length-1].del_id + 1
             this.DeletionRequests.push(
@@ -370,6 +387,26 @@ export const useCounterStore = defineStore('counter', {
                 }
             )
             console.log(this.DeletionRequests)
+        },
+        cancel_deletion(del_id){
+            this.DeletionRequests = this.DeletionRequests.filter((item) => item.del_id != del_id)
+        },
+        add_new_document(name, deps) {
+            const new_doc_id = this.Document[this.Document.length-1].doc_id + 1
+            this.Document.push({
+                doc_id: new_doc_id,
+                name: name,
+                filename: name+'.docx'
+            })
+            for(let i in [0,1,2]){
+                if (deps.includes(this.department_by_id(i))){
+                    this.DocumentDepartment.push({
+                        doc_id: new_doc_id,
+                        department_id: i
+                    })
+                }
+            }
+            this.show_add_file_modal = false;
         }
     }
 });

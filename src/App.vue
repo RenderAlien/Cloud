@@ -67,11 +67,24 @@ export default {
 
   </div>
   <div v-else-if="store.my_status == 'admin'">
+    
     <div class="sidebar">
       <RouterLink class="logo" to="/">Облако</RouterLink>
-      <RouterLink class="sidebar-button" to="/" style="font-size: 2vw;">Пользователи</RouterLink>
-      <RouterLink class="sidebar-button" to="/dep" style="font-size: 1.8vw;">Запросы на удаление</RouterLink>
-      <RouterLink class="sidebar-button" to="/deps" style="font-size: 2vw;">Документы</RouterLink>
+      <RouterLink class="sidebar-button" to="/admin_users" style="font-size: 2vw;" @click="store.admin_current_search_placeholder='Поиск по пользователям...'">
+        Пользователи
+      </RouterLink>
+      <RouterLink class="sidebar-button" to="/admin_del_requests" style="font-size: 1.8vw; line-height: 1;" @click="store.admin_current_search_placeholder='Поиск по запросам...'">
+        Запросы на удаление
+      </RouterLink>
+      <RouterLink class="sidebar-button" to="/admin_docs" style="font-size: 2vw;" @click="store.admin_current_search_placeholder='Поиск по документам...'">
+        Документы
+      </RouterLink>
+    </div>
+
+    <div class="content">
+
+      <RouterView />
+
     </div>
   </div>
 </template>

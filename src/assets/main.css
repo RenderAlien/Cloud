@@ -27,6 +27,7 @@
   text-align: center;
   text-decoration: none;
   color: black;
+  margin-bottom: 11.1481vh;
 }
 
 .content{
@@ -66,7 +67,7 @@
 
 .sidebar-button{
   width: 93.75%;
-  height: 27.778vh;
+  height: 9.2593vh;
   background-color: rgb(183,183,183);
   margin-top: 2vh;
   margin-left: 0.4vw;
@@ -90,6 +91,7 @@
   background-color: rgb(150,150,217);
   margin-top: 40vh;
   margin-left: 0.4vw;
+  margin-bottom: 1vh;
   border-radius: 0.52vw;
   align-content: center;
   text-align: center;
@@ -195,7 +197,7 @@
   position: absolute;
   left: 60.521vw;
   width: 16.04167vw;
-  height: 7.407vh;
+  height: 80px;
   background-color: rgb(150,150,217);
   align-content: center;
   text-align: center;
@@ -215,7 +217,7 @@
   position: absolute;
   left: 79.01vw;
   width: 16.04167vw;
-  height: 7.407vh;
+  height: 80px;
   background-color: rgb(217,150,150);
   align-content: center;
   text-align: center;
@@ -226,6 +228,66 @@
 }
 
 .item-red-button:hover{
+  background-color: rgb(255,150,150);
+}
+
+.req-blue-button{
+  position: absolute;
+  left: 63.54167vw;
+  width: 16.04167vw;
+  height: 80px;
+  background-color: rgb(150,150,217);
+  align-content: center;
+  text-align: center;
+  font-size: 2.2vw;
+  border-radius: 0.83vw;
+  transition: background-color 0.4s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+.req-blue-button:hover{
+  background-color: rgb(150,150,255);
+}
+
+.req-blue-button-small{
+  position: absolute;
+  left: 81.97917vw;
+  width: 5.3125vw;
+  height: 80px;
+  background-color: rgb(150,150,217);
+  align-content: center;
+  text-align: center;
+  font-size: 2.2vw;
+  border-radius: 0.83vw;
+  transition: background-color 0.4s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+.req-blue-button-small:hover{
+  background-color: rgb(150,150,255);
+}
+
+.req-red-button-small{
+  position: absolute;
+  left: 89.6875vw;
+  width: 5.3125vw;
+  height: 80px;
+  background-color: rgb(217,150,150);
+  align-content: center;
+  text-align: center;
+  font-size: 2.2vw;
+  border-radius: 0.83vw;
+  transition: background-color 0.4s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+.req-red-button-small:hover{
   background-color: rgb(255,150,150);
 }
 
@@ -292,4 +354,26 @@
 
 .modal-button:hover{
   background-color: rgb(150,150,255);
+}
+
+.content-button{
+  width: 78.125vw;
+  height: 100px;
+  background-color: rgb(170, 170, 217);
+  margin-top: 20px;
+  border-radius: 1vw;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.4s ease;
+  cursor: pointer;
+}
+
+.content-button:hover{
+  background-color: rgb(170, 170, 255);
+}
+
+.content-button-text{
+  text-align: center;
+  font-size: 2vw;
+  margin-left: 1.04167vw;
 }
