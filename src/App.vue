@@ -1,8 +1,12 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router'
 import { useCounterStore } from '../store/store';
+import AddFileModal from './components/AddFileModal.vue';
 
 export default {
+  components: {
+    AddFileModal
+  },
   setup() {
     const store = useCounterStore();
     return { store };
@@ -12,6 +16,7 @@ export default {
 </script>
 
 <template>
+  <AddFileModal :show="store.show_add_file_modal" @close="store.show_modal = false"/>
   <div v-if="store.my_status == null" class="auth-container">
 
     <div>
@@ -34,18 +39,28 @@ export default {
       <RouterLink class="sidebar-button" to="/">Главная</RouterLink>
       <RouterLink class="sidebar-button" to="/dep" @click="store.current_department_id = store.my_department_id">Мой отдел</RouterLink>
       <RouterLink class="sidebar-button" to="/deps">Отделы</RouterLink>
-      <div class="sidebar-button-add">Добавить</div>
+      <div class="sidebar-button-add" @click="store.show_add_file_modal=true">Добавить</div>
     </div>
 
     <div class="content">
 
       <div class="header m-0">
-        <input type="text" class="search" placeholder="Поиск..." >
+        <input type="text" class="search" placeholder="Поиск..." v-model="store.current_search">
         <RouterLink class="header-profile-button" to="/profile">{{ store.my_first_name + " " + store.my_second_name[0] + "." }}</RouterLink>
       </div>
 
-      <div v-if="store.current_search == null" class="page">
+      <div v-if="store.current_search == ''" class="page">
         <RouterView />
+      </div>
+      <div v-else class="page">
+        <div class="content-text">Результат поиска:</div>
+        <div class="item-container">
+          <div v-for="doc in store.doc_search(store.current_search)" class="item">
+            <div class="item-text">{{ doc.name }}</div>
+            <a class="item-blue-button" :href="store.path_by_doc_id(doc.doc_id)" download>Скачать</a>
+            <div class="item-red-button" @click="store.request_deletion(doc.doc_id, store.my_user_id)">Удалить</div>
+          </div>
+        </div>
       </div>
       
     </div>

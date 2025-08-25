@@ -15,7 +15,12 @@ export const useCounterStore = defineStore('counter', {
 
         //данные для работы системы
         current_department_id: null, // текущий отдел: для страницы конкрентого отдела и страницы Мой отдел
-        current_search: null, // текущий запрос в поисковике
+        current_search: '', // текущий запрос в поисковике
+        show_add_file_modal: false,
+
+        // данные для добавления файла
+        new_doc_name: '',
+        new_doc_deps: '',
 
         // База данных (временно)
         Document: [
@@ -313,6 +318,16 @@ export const useCounterStore = defineStore('counter', {
             const items = state.DocumentDepartment.filter((item) => item.department_id == dep_id);
             const doc_ids = items.slice(items.length - n).map((item) => item.doc_id);
             return state.Document.filter((item) => doc_ids.includes(item.doc_id)).reverse();
+        },
+        path_by_doc_id: (state) => (doc_id) => {
+            for (const doc of state.Document){
+                if (doc.doc_id == doc_id){
+                    return '../../store/files/' + doc.filename
+                }
+            }
+        },
+        doc_search: (state) => (search_req) => {
+            return state.Document.filter((item) => item.name.toLowerCase().includes(search_req.toLowerCase()) || item.filename.toLowerCase().includes(search_req.toLowerCase()))
         }
     },
     actions:{

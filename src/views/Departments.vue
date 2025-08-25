@@ -7,15 +7,15 @@ const store = useCounterStore();
 <template>
 
     <div v-for="department_id in [0,1,2]">
-        <div class="content-text">{{ 'Отдел ' + store.department_by_id(department_id) }}</div>
+        <RouterLink class="content-text" to="/dep" @click="store.current_department_id = department_id">{{ 'Отдел ' + store.department_by_id(department_id) + ':' }}</RouterLink>
         <div class="item-container">
             <div v-for="doc in store.dep_lastn(department_id, 3)" class="item">
                 <div class="item-text">
                     {{ doc.name }}
                 </div>
-                <div class="item-blue-button">
+                <a class="item-blue-button" :href="store.path_by_doc_id(doc.doc_id)" download>
                     Скачать
-                </div>
+                </a>
                 <div class="item-red-button" @click="store.request_deletion(doc.doc_id, store.my_user_id)">
                     Удалить
                 </div>

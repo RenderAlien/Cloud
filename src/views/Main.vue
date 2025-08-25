@@ -12,23 +12,23 @@ const store = useCounterStore();
             <div class="item-text">
                 {{ doc.name }}
             </div>
-            <div class="item-blue-button">
+            <a :href="store.path_by_doc_id(doc.doc_id)" class="item-blue-button" download>
                 Скачать
-            </div>
+            </a>
             <div class="item-red-button" @click="store.request_deletion(doc.doc_id, store.my_user_id)">
                 Удалить
             </div>
         </div>
     </div>
-    <div class="content-text">Мой отдел</div>
+    <div class="content-text">Мой отдел:</div>
     <div class="item-container">
         <div v-for="doc in store.dep_lastn(store.my_department_id, 3)" class="item">
             <div class="item-text">
                 {{ doc.name }}
             </div>
-            <div class="item-blue-button">
+            <a :href="store.path_by_doc_id(doc.doc_id)" class="item-blue-button" download>
                 Скачать
-            </div>
+            </a>
             <div class="item-red-button" @click="store.request_deletion(doc.doc_id, store.my_user_id)">
                 Удалить
             </div>
