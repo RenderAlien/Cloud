@@ -2,10 +2,12 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { useCounterStore } from '../store/store';
 import AddFileModal from './components/AddFileModal.vue';
+import ChangeUserModal from './components/ChangeUserModal.vue';
 
 export default {
   components: {
-    AddFileModal
+    AddFileModal,
+    ChangeUserModal
   },
   setup() {
     const store = useCounterStore();
@@ -16,7 +18,8 @@ export default {
 </script>
 
 <template>
-  <AddFileModal :show="store.show_add_file_modal" @close="store.show_modal = false"/>
+  <AddFileModal :show="store.show_add_file_modal" @close="store.show_add_file_modal = false"/>
+  <ChangeUserModal :show="store.show_change_user_modal" @close="store.show_change_user_modal = false"/>
   <div v-if="store.my_status == null" class="auth-container">
 
     <div>
@@ -69,7 +72,7 @@ export default {
   <div v-else-if="store.my_status == 'admin'">
     
     <div class="sidebar">
-      <RouterLink class="logo" to="/">Облако</RouterLink>
+      <RouterLink class="logo" to="/admin_users">Облако</RouterLink>
       <RouterLink class="sidebar-button" to="/admin_users" style="font-size: 2vw;" @click="store.admin_current_search_placeholder='Поиск по пользователям...'">
         Пользователи
       </RouterLink>

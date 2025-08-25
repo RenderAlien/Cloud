@@ -1,7 +1,13 @@
 <script setup>
 import { useCounterStore } from '../../store/store';
+import { useRouter } from 'vue-router';
 
-const store = useCounterStore();
+const router = useRouter()
+
+const store = useCounterStore(); //редирект на страницу для админа
+if (store.my_status == 'admin'){
+    router.push('/admin_users')
+}
 </script>
 
 <template>

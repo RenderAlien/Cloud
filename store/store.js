@@ -13,13 +13,20 @@ export const useCounterStore = defineStore('counter', {
         my_department_id: 3, // мой отдел
         my_user_id: 0,
 
-        //данные для работы системы
+        // данные для работы системы
         current_department_id: null, // текущий отдел: для страницы конкрентого отдела и страницы Мой отдел
         current_search: '', // текущий запрос в поисковике
-        show_add_file_modal: false,
-        admin_current_search_placeholder: 'Поиск по пользователям...',
+
+        // данные для изменения данных пользователя
+        show_change_user_modal: false, //показ модального окна для изменения данных пользователя
+        current_user_id_to_change: null, //выбранный для изменения данных пользователь
+        new_user_first_name: '',
+        new_user_second_name: '',
+        new_user_email: '',
+        new_user_password: '',
 
         // данные для добавления файла
+        show_add_file_modal: false, //показ модального окна для добавления файла
         new_doc_name: '',
         new_doc_deps: '',
 
@@ -270,7 +277,7 @@ export const useCounterStore = defineStore('counter', {
                 second_name: 'Мария',
                 third_name: 'Матвеевна',
                 email: 'grom@corp.ru',
-                pasword: '$2b$10$wrmUUUhh9wBj4Zce8osQOOOYXy8/m53f5iWYBBOhY4jAte41Qqouq', // gromovam
+                password: '$2b$10$wrmUUUhh9wBj4Zce8osQOOOYXy8/m53f5iWYBBOhY4jAte41Qqouq', // gromovam
                 department_id: 3
             },
             {
@@ -279,7 +286,7 @@ export const useCounterStore = defineStore('counter', {
                 second_name: 'Евгений',
                 third_name: 'Андреевич',
                 email: 'head@corp.ru',
-                pasword: '$2b$10$wrmUUUhh9wBj4Zce8osQOOoWURzJvdBPLC5/axdegSZyJHkdiF/lO', // popove
+                password: '$2b$10$wrmUUUhh9wBj4Zce8osQOOoWURzJvdBPLC5/axdegSZyJHkdiF/lO', // popove
                 department_id: 1
             },
             {
@@ -288,7 +295,7 @@ export const useCounterStore = defineStore('counter', {
                 second_name: 'Евгений',
                 third_name: 'Васильевич',
                 email: 'ilev@corp.ru',
-                pasword: '$2b$10$wrmUUUhh9wBj4Zce8osQOO0WIJOa2YL.gIHlUyJQUzFgHk8chIbny', // ilinevvas
+                password: '$2b$10$wrmUUUhh9wBj4Zce8osQOO0WIJOa2YL.gIHlUyJQUzFgHk8chIbny', // ilinevvas
                 department_id: 0
             },
         ],
@@ -336,13 +343,20 @@ export const useCounterStore = defineStore('counter', {
                     return doc
                 }
             }
+        },
+        user_by_user_id: (state) => (user_id) => {
+            for (const user of state.User){
+                if (user.user_id == user_id){
+                    return user
+                }
+            }
         }
     },
     actions:{
         authentificate() {
             const hashed_password = hashSync(this.my_password, '$2b$10$wrmUUUhh9wBj4Zce8osQOO');
             for (const user of this.User){
-                if (user.email == this.my_email && user.pasword == hashed_password){
+                if (user.email == this.my_email && user.password == hashed_password){
                     this.my_first_name = user.first_name;
                     this.my_second_name = user.second_name;
                     this.my_third_name = user.third_name;
@@ -407,6 +421,22 @@ export const useCounterStore = defineStore('counter', {
                 }
             }
             this.show_add_file_modal = false;
+        },
+        delete_by_user_id(user_id) {
+            this.User = this.User.filter((item) => item.user_id != user_id)
+        },
+        change_user_props(user_id, first_name, second_name, email, password){
+            let i=0
+            while(this.User[i].user_id!=user_id){
+                i++
+            }
+            
+            if(first_name!='')this.User[i].first_name = first_name
+            if(second_name!='')this.User[i].second_name = second_name
+            if(email!='')this.User[i].email = email
+            if(password!='')this.User[i].password = hashSync(password, '$2b$10$wrmUUUhh9wBj4Zce8osQOO')
+            
+            this.show_change_user_modal = false
         }
     }
 });

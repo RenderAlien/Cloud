@@ -32,7 +32,7 @@ const router = createRouter({
     },
     {
       path: '/admin_users',
-      name: '/admin_sers',
+      name: '/admin_users',
       component: AdminUsers
     },
     {

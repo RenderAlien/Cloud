@@ -20,8 +20,8 @@ const store = useCounterStore();
                 <a class="req-blue-button" :href="store.path_by_doc_id(req.doc_id)" download>
                     Скачать
                 </a>
-                <div class="req-blue-button-small" @click="store.cancel_deletion(req.del_id)"></div>
-                <div class="req-red-button-small" @click="store.delete_by_del_id(req.del_id)"></div>
+                <div class="req-blue-button-small" @click="store.cancel_deletion(req.del_id)" title="Отмена"></div>
+                <div class="req-red-button-small" @click="store.delete_by_del_id(req.del_id)" title="Удалить"></div>
             </div>
         </div>
     </div>

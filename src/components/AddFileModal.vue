@@ -18,7 +18,7 @@ export default{
             <div>
                 <input type="file" class="modal-file-input" name="add_file_input" id="add_file_input">
             </div>
-            <div style="display: flex; flex-direction: row; gap: 1.04167vw;">
+            <div style="display: flex; flex-direction: row; gap: 1.04167vw; margin-top: 18.5185vh;">
                 <div class="modal-button" @click="store.show_add_file_modal=false">Отмена</div>
                 <div class="modal-button" @click="store.add_new_document(store.new_doc_name, store.new_doc_deps)">Добавить</div>
             </div>
