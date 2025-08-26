@@ -32,7 +32,7 @@ export default {
       </div>
       <div class="mb-3">
         <label for="password_input" class="form-label">Пароль</label>
-        <input class="form-control" id="password_input" v-model="store.my_password">
+        <input class="form-control" id="password_input" type="password" v-model="store.my_password">
       </div>
       <button class="btn btn-primary" @click="store.authentificate()">Войти</button>
     </div>

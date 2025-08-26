@@ -86,10 +86,10 @@
 }
 
 .sidebar-button-add{
+  position: absolute;
   width: 93.75%;
-  height: 27.778vh;
+  height: 9.2593vh;
   background-color: rgb(150,150,217);
-  margin-top: 40vh;
   margin-left: 0.4vw;
   margin-bottom: 1vh;
   border-radius: 0.52vw;

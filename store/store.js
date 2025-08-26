@@ -318,7 +318,12 @@ export const useCounterStore = defineStore('counter', {
                 doc_id: 10,
                 user_id: 1
             }
-        ]
+        ],
+
+        // айди для бд
+        next_del_id: 3,
+        next_doc_id: 21,
+        next_user_id: 3,
     }),
     getters: {
         department_by_id: (state) => (id) => {
@@ -412,29 +417,29 @@ export const useCounterStore = defineStore('counter', {
                 i++;
             }
             this.delete_by_doc_id(this.DeletionRequests[i].doc_id)
-            this.DeletionRequests.pop(i);
+            this.DeletionRequests.splice(i, 1);
         },
         request_deletion(doc_id, user_id) {
-            const del_id = this.DeletionRequests[this.DeletionRequests.length-1].del_id + 1
             this.DeletionRequests.push(
                 {
-                    del_id: del_id,
+                    del_id: this.next_del_id,
                     doc_id: doc_id,
                     user_id: user_id
                 }
             )
+            this.next_del_id++
             console.log(this.DeletionRequests)
         },
         cancel_deletion(del_id){
             this.DeletionRequests = this.DeletionRequests.filter((item) => item.del_id != del_id)
         },
         add_new_document(name, deps) {
-            const new_doc_id = this.Document[this.Document.length-1].doc_id + 1
             this.Document.push({
-                doc_id: new_doc_id,
+                doc_id: this.next_doc_id,
                 name: name,
                 filename: name+'.docx'
             })
+            this.next_doc_id++
             for(let i in [0,1,2]){
                 if (deps.includes(this.department_by_id(i))){
                     this.DocumentDepartment.push({
@@ -470,17 +475,18 @@ export const useCounterStore = defineStore('counter', {
                 console.log('incorrect props to add new user')
                 return
             }
+
             let i = 0
             while(this.Department[i].name != department) i++
             if(this.Department[i].name != department){
                 console.log('there is not such department')
                 return
             }
+
             let department_id = this.Department[i].department_id
-            console.log(department_id)
 
             this.User.push({
-                user_id: this.User[this.User.length-1] + 1,
+                user_id: this.next_user_id,
                 first_name: first_name,
                 second_name: second_name,
                 third_name: third_name,
@@ -488,6 +494,7 @@ export const useCounterStore = defineStore('counter', {
                 password: hashSync(password, '$2b$10$wrmUUUhh9wBj4Zce8osQOO'),
                 department_id: department_id
             })
+            this.next_user_id++
             this.show_add_user_modal = false
             this.new_user_first_name = ''
             this.new_user_second_name = ''
