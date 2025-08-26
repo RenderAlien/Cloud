@@ -20,7 +20,7 @@ export default{
 
             <div style="display: flex; flex-direction: row; gap: 1.04167vw; margin-top: 10.7407vh;">
                 <div class="modal-button" @click="store.show_change_user_modal=false">Отмена</div>
-                <div class="modal-button" @click="store.change_user_props(store.current_user_id_to_change, store.new_user_first_name, store.new_user_second_name, store.new_user_email, store.new_user_password)">Изменить</div>
+                <div class="modal-button" @click="store.change_user_props()">Изменить</div>
             </div>
         </div>
     </div>
