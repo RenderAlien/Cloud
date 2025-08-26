@@ -29,10 +29,15 @@ const store = useCounterStore();
     <div v-else class="page">
         <div class="content-text">Результат поиска:</div>
         <div class="item-container">
-          <div v-for="doc in store.doc_search(store.current_search)" class="item">
-            <div class="item-text">{{ doc.name }}</div>
-            <a class="item-blue-button" :href="store.path_by_doc_id(doc.doc_id)" download>Скачать</a>
-            <div class="item-red-button" @click="store.request_deletion(doc.doc_id, store.my_user_id)">Удалить</div>
+          <div v-for="req in store.req_search(store.current_search)" class="item">
+                <div class="item-text">
+                    {{ store.doc_by_doc_id(req.doc_id).name }}
+                </div>
+                <a class="req-blue-button" :href="store.path_by_doc_id(req.doc_id)" download>
+                    Скачать
+                </a>
+                <div class="req-blue-button-small" @click="store.cancel_deletion(req.del_id)" title="Отмена"></div>
+                <div class="req-red-button-small" @click="store.delete_by_del_id(req.del_id)" title="Удалить"></div>
           </div>
         </div>
     </div>

@@ -6,11 +6,11 @@ export const useCounterStore = defineStore('counter', {
         // данные пользователя
         my_email: '',
         my_password: '',
-        my_status: 'admin', // null - не авторизован, 'worker' - сотрудник, 'admin' - админ
-        my_first_name: 'worker', //Ф
-        my_second_name: 'worker', //И
-        my_third_name: 'worker', //О
-        my_department_id: 3, // мой отдел
+        my_status: null, // null - не авторизован, 'worker' - сотрудник, 'admin' - админ
+        my_first_name: null, //Ф
+        my_second_name: null, //И
+        my_third_name: null, //О
+        my_department_id: null, // мой отдел
         my_user_id: 0,
 
         // данные для работы системы
@@ -307,6 +307,16 @@ export const useCounterStore = defineStore('counter', {
                 del_id: 0,
                 doc_id: 1,
                 user_id: 1
+            },
+            {
+                del_id: 1,
+                doc_id: 15,
+                user_id: 2
+            },
+            {
+                del_id: 2,
+                doc_id: 10,
+                user_id: 1
             }
         ]
     }),
@@ -353,6 +363,16 @@ export const useCounterStore = defineStore('counter', {
                     return user
                 }
             }
+        },
+        user_search: (state) => (search_req) => {
+            return state.User.filter((item) => item.first_name.toLowerCase().includes(search_req.toLowerCase()) ||
+            item.second_name.toLowerCase().includes(search_req.toLowerCase()) ||
+            item.third_name.toLowerCase().includes(search_req.toLowerCase()) ||
+            state.department_by_id(item.department_id).toLowerCase().includes(search_req.toLowerCase()))
+        },
+        req_search: (state) => (search_req) => {
+            return state.DeletionRequests.filter((item) => state.doc_by_doc_id(item.doc_id).name.toLowerCase().includes(search_req.toLowerCase()) ||
+            state.doc_by_doc_id(item.doc_id).filename.toLowerCase().includes(search_req.toLowerCase()))
         }
     },
     actions:{
@@ -452,7 +472,12 @@ export const useCounterStore = defineStore('counter', {
             }
             let i = 0
             while(this.Department[i].name != department) i++
+            if(this.Department[i].name != department){
+                console.log('there is not such department')
+                return
+            }
             let department_id = this.Department[i].department_id
+            console.log(department_id)
 
             this.User.push({
                 user_id: this.User[this.User.length-1] + 1,
