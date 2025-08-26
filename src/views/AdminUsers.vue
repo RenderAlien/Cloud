@@ -12,6 +12,11 @@ const store = useCounterStore();
       
     <div v-if="store.current_search == ''" class="page">
         <div class="item-container">
+            <div class="content-button" @click="store.show_add_user_modal=true">
+                <div class="content-button-text">
+                    Добавить нового пользователя...
+                </div>
+            </div>
             <div v-for="user in store.User" class="item">
                 <div class="item-text">
                     {{ user.first_name + ' ' + user.second_name[0] + '. ' + user.third_name[0] + '.' }}

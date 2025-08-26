@@ -17,13 +17,16 @@ export const useCounterStore = defineStore('counter', {
         current_department_id: null, // текущий отдел: для страницы конкрентого отдела и страницы Мой отдел
         current_search: '', // текущий запрос в поисковике
 
-        // данные для изменения данных пользователя
+        // данные для изменения данных пользователя и добавления нового пользователя
         show_change_user_modal: false, //показ модального окна для изменения данных пользователя
+        show_add_user_modal: false, //показ модального окна для добавления нового пользователя
         current_user_id_to_change: null, //выбранный для изменения данных пользователь
-        new_user_first_name: '',
-        new_user_second_name: '',
+        new_user_first_name: '', //Ф
+        new_user_second_name: '', //И
+        new_user_third_name: '', //О
         new_user_email: '',
         new_user_password: '',
+        new_user_department: '',
 
         // данные для добавления файла
         show_add_file_modal: false, //показ модального окна для добавления файла
@@ -437,6 +440,36 @@ export const useCounterStore = defineStore('counter', {
             if(password!='')this.User[i].password = hashSync(password, '$2b$10$wrmUUUhh9wBj4Zce8osQOO')
             
             this.show_change_user_modal = false
+            this.new_user_first_name = ''
+            this.new_user_second_name = ''
+            this.new_user_email = ''
+            this.new_user_password = ''
+        },
+        add_new_user(first_name, second_name, third_name, email, password, department) {
+            if(first_name=='' || second_name=='' || third_name=='' || email=='' || password=='' || department==''){
+                console.log('incorrect props to add new user')
+                return
+            }
+            let i = 0
+            while(this.Department[i].name != department) i++
+            let department_id = this.Department[i].department_id
+
+            this.User.push({
+                user_id: this.User[this.User.length-1] + 1,
+                first_name: first_name,
+                second_name: second_name,
+                third_name: third_name,
+                email: email,
+                password: hashSync(password, '$2b$10$wrmUUUhh9wBj4Zce8osQOO'),
+                department_id: department_id
+            })
+            this.show_add_user_modal = false
+            this.new_user_first_name = ''
+            this.new_user_second_name = ''
+            this.new_user_third_name = ''
+            this.new_user_email = ''
+            this.new_user_password = ''
+            this.new_user_department = ''
         }
     }
 });

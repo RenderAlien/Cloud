@@ -3,11 +3,13 @@ import { RouterLink, RouterView } from 'vue-router'
 import { useCounterStore } from '../store/store';
 import AddFileModal from './components/AddFileModal.vue';
 import ChangeUserModal from './components/ChangeUserModal.vue';
+import AddUserModal from './components/AddUserModal.vue';
 
 export default {
   components: {
     AddFileModal,
-    ChangeUserModal
+    ChangeUserModal,
+    AddUserModal
   },
   setup() {
     const store = useCounterStore();
@@ -20,6 +22,7 @@ export default {
 <template>
   <AddFileModal :show="store.show_add_file_modal" @close="store.show_add_file_modal = false"/>
   <ChangeUserModal :show="store.show_change_user_modal" @close="store.show_change_user_modal = false"/>
+  <AddUserModal :show="store.show_add_user_modal" @close="store.show_add_user_modal = false"/>
   <div v-if="store.my_status == null" class="auth-container">
 
     <div>
