@@ -23,6 +23,7 @@ export default {
   <AddFileModal :show="store.show_add_file_modal" @close="store.show_add_file_modal = false"/>
   <ChangeUserModal :show="store.show_change_user_modal" @close="store.show_change_user_modal = false"/>
   <AddUserModal :show="store.show_add_user_modal" @close="store.show_add_user_modal = false"/>
+
   <div v-if="store.my_status == null" class="auth-container">
 
     <div>
@@ -34,7 +35,7 @@ export default {
         <label for="password_input" class="form-label">Пароль</label>
         <input class="form-control" id="password_input" type="password" v-model="store.my_password">
       </div>
-      <button class="btn btn-primary" @click="store.authentificate()">Войти</button>
+      <button class="btn btn-primary" @click="store.authentificate(store.my_email, store.my_password)">Войти</button>
     </div>
 
   </div>

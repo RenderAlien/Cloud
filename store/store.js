@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { hashSync } from "bcryptjs";
+import axios from 'axios';
 
 export const useCounterStore = defineStore('counter', {
     state: () => ({
@@ -143,19 +144,19 @@ export const useCounterStore = defineStore('counter', {
         ],
         Department: [
             {
-                department_id: 0,
+                department_id: 1,
                 name: 'HR'
             },
             {
-                department_id: 1,
+                department_id: 2,
                 name: 'Руководство'
             },
             {
-                department_id: 2,
+                department_id: 3,
                 name: 'Финансы'
             },
             {
-                department_id: 3,
+                department_id: 4,
                 name: 'Администратор'
             }
         ],
@@ -183,10 +184,6 @@ export const useCounterStore = defineStore('counter', {
             {
                 doc_id: 4,
                 department_id: 0
-            },
-            {
-                doc_id: 5,
-                department_id: 1
             },
             {
                 doc_id: 5,
@@ -381,23 +378,35 @@ export const useCounterStore = defineStore('counter', {
         }
     },
     actions:{
-        authentificate() {
-            const hashed_password = hashSync(this.my_password, '$2b$10$wrmUUUhh9wBj4Zce8osQOO');
-            for (const user of this.User){
-                if (user.email == this.my_email && user.password == hashed_password){
-                    this.my_first_name = user.first_name;
-                    this.my_second_name = user.second_name;
-                    this.my_third_name = user.third_name;
-                    this.my_department_id = user.department_id;
-                    if (this.my_department_id == 3){
-                        this.my_status = 'admin';
+        async authentificate(email, password){
+            try{
+                const response = await axios.get('http://localhost:3001/api/authentificate', {
+                    params: {
+                        email: email,
+                        password: password
+                    }
+                })
+                if (response.data[0] != null){
+                    this.my_email = email
+                    this.my_department_id = response.data[0].department_id
+                    if(this.my_department_id == 4){
+                        this.my_status = 'admin'
                     }
                     else{
-                        this.my_status = 'worker';
+                        this.my_status = 'worker'
                     }
-                    break;
+                    this.my_first_name = response.data[0].first_name
+                    this.my_second_name = response.data[0].second_name
+                    this.my_third_name = response.data[0].third_name
+                    this.my_user_id = response.data[0].user_id
                 }
+                else{
+                    console.log('auth error')
+                }
+            } catch (error) {
+                console.log('auth error', error)
             }
+
         },
         exit() {
             this.my_first_name = null;
