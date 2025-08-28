@@ -8,17 +8,19 @@ const store = useCounterStore(); //редирект на страницу для
 if (store.my_status == 'admin'){
     router.push('/admin_users')
 }
+store.lastn(3)
+store.dep_docs(store.my_department_id)
 </script>
 
 <template>
 
     <div class="content-text">Недавно добавленные:</div>
     <div class="item-container">
-        <div v-for="doc in store.lastn(3)" class="item">
+        <div v-for="doc in store.lastn_docs_arr" class="item">
             <div class="item-text">
                 {{ doc.name }}
             </div>
-            <a :href="store.path_by_doc_id(doc.doc_id)" class="item-blue-button" download>
+            <a :href="'../../store/files/' + doc.filename" class="item-blue-button" download>
                 Скачать
             </a>
             <div class="item-red-button" @click="store.request_deletion(doc.doc_id, store.my_user_id)">
@@ -28,11 +30,11 @@ if (store.my_status == 'admin'){
     </div>
     <div class="content-text">Мой отдел:</div>
     <div class="item-container">
-        <div v-for="doc in store.dep_lastn(store.my_department_id, 3)" class="item">
+        <div v-for="doc in store.dep_docs_arr.length>3 ? store.dep_docs_arr.slice(store.dep_docs_arr.length-3) : store.dep_docs_arr" class="item">
             <div class="item-text">
                 {{ doc.name }}
             </div>
-            <a :href="store.path_by_doc_id(doc.doc_id)" class="item-blue-button" download>
+            <a :href="'../../store/files/' + doc.filename" class="item-blue-button" download>
                 Скачать
             </a>
             <div class="item-red-button" @click="store.request_deletion(doc.doc_id, store.my_user_id)">

@@ -33,111 +33,112 @@ export const useCounterStore = defineStore('counter', {
         show_add_file_modal: false, //показ модального окна для добавления файла
         new_doc_name: '',
         new_doc_deps: '',
+        new_doc_file: null,
 
         // База данных (временно)
         Document: [
             {
-                doc_id: 0,
+                doc_id: 1,
                 name: 'График отпусков 2024',
                 filename: 'Отпуска2024.docx'
             },
             {
-                doc_id: 1,
+                doc_id: 2,
                 name: 'Счет на оплату №567',
                 filename: 'Счет567.docx'
             },
             {
-                doc_id: 2,
+                doc_id: 3,
                 name: 'Стратегический план',
                 filename: 'План.docx'
             },
             {
-                doc_id: 3,
+                doc_id: 4,
                 name: 'Годовой бюджет 2024',
                 filename: 'Бюджет2024.docx'
             },
             {
-                doc_id: 4,
+                doc_id: 5,
                 name: 'Приказ о приеме на работу',
                 filename: 'Приказ о приеме на работу.docx'
             },
             {
-                doc_id: 5,
+                doc_id: 6,
                 name: 'Акт сверки с контрагентом',
                 filename: 'Акт сверки.docx'
             },
             {
-                doc_id: 6,
+                doc_id: 7,
                 name: 'Должностная инструкция',
                 filename: 'Должност инструкция.docx'
             },
             {
-                doc_id: 7,
+                doc_id: 8,
                 name: 'Годовой отчет СовДиру',
                 filename: 'ОтчетСовДиру.docx'
             },
             {
-                doc_id: 8,
+                doc_id: 9,
                 name: 'Бухгалтерский баланс',
                 filename: 'БухБаланс.docx'
             },
             {
-                doc_id: 9,
+                doc_id: 10,
                 name: 'Положение об оплате труда',
                 filename: 'Оплата труда.docx'
             },
             {
-                doc_id: 10,
+                doc_id: 11,
                 name: 'Протокол собрания директоров',
                 filename: 'Протокол СовДир.docx'
             },
             {
-                doc_id: 11,
+                doc_id: 12,
                 name: 'Отчет о движении денег',
                 filename: 'Отчет о движ денег.docx'
             },
             {
-                doc_id: 12,
+                doc_id: 13,
                 name: 'Штатное расписание',
                 filename: 'ШтатнРаспис.docx'
             },
             {
-                doc_id: 13,
+                doc_id: 14,
                 name: 'Политика конфиденциальности',
                 filename: 'Политика конфиденциальности.docx'
             },
             {
-                doc_id: 14,
+                doc_id: 15,
                 name: 'Налоговая декларация',
                 filename: 'НалогДеклар.docx'
             },
             {
-                doc_id: 15,
+                doc_id: 16,
                 name: 'Заявление на отпуск',
                 filename: 'Заявление на отпуск.docx'
             },
             {
-                doc_id: 16,
+                doc_id: 17,
                 name: 'Устав предприятия',
                 filename: 'Устав.docx'
             },
             {
-                doc_id: 17,
+                doc_id: 18,
                 name: 'Счет-фактура №78-Ф',
                 filename: '78Ф.docx'
             },
             {
-                doc_id: 18,
+                doc_id: 19,
                 name: 'План развития на 2024-2025',
                 filename: 'План20242025.docx'
             },
             {
-                doc_id: 19,
+                doc_id: 20,
                 name: 'Акт о нарушении дисциплины',
                 filename: 'Акт о наруш дисциплины.docx'
             },
             {
-                doc_id: 20,
+                doc_id: 21,
                 name: 'Трудовой договор ИТ-0001',
                 filename: 'ИТ0001.docx'
             },
@@ -162,28 +163,24 @@ export const useCounterStore = defineStore('counter', {
         ],
         DocumentDepartment: [
             {
-                doc_id: 0,
-                department_id: 0
-            },
-            {
                 doc_id: 1,
                 department_id: 1
-            },
-            {
-                doc_id: 1,
-                department_id: 2
             },
             {
                 doc_id: 2,
-                department_id: 1
+                department_id: 2
             },
             {
                 doc_id: 3,
+                department_id: 3
+            },
+            {
+                doc_id: 4,
                 department_id: 2
             },
             {
                 doc_id: 4,
-                department_id: 0
+                department_id: 3
             },
             {
                 doc_id: 5,
@@ -191,23 +188,23 @@ export const useCounterStore = defineStore('counter', {
             },
             {
                 doc_id: 6,
-                department_id: 0
-            },
-            {
-                doc_id: 7,
-                department_id: 0
-            },
-            {
-                doc_id: 7,
                 department_id: 2
+            },
+            {
+                doc_id: 7,
+                department_id: 1
             },
             {
                 doc_id: 8,
-                department_id: 2
+                department_id: 1
+            },
+            {
+                doc_id: 8,
+                department_id: 3
             },
             {
                 doc_id: 9,
-                department_id: 0
+                department_id: 3
             },
             {
                 doc_id: 10,
@@ -219,55 +216,59 @@ export const useCounterStore = defineStore('counter', {
             },
             {
                 doc_id: 12,
-                department_id: 0
-            },
-            {
-                doc_id: 13,
-                department_id: 0
+                department_id: 3
             },
             {
                 doc_id: 13,
                 department_id: 1
             },
             {
-                doc_id: 13,
-                department_id: 2
+                doc_id: 14,
+                department_id: 1
             },
             {
                 doc_id: 14,
                 department_id: 2
             },
             {
-                doc_id: 15,
-                department_id: 0
+                doc_id: 14,
+                department_id: 3
             },
             {
-                doc_id: 16,
-                department_id: 0
+                doc_id: 15,
+                department_id: 3
             },
             {
                 doc_id: 16,
                 department_id: 1
             },
             {
-                doc_id: 16,
-                department_id: 2
+                doc_id: 17,
+                department_id: 1
             },
             {
                 doc_id: 17,
                 department_id: 2
             },
             {
+                doc_id: 17,
+                department_id: 3
+            },
+            {
                 doc_id: 18,
-                department_id: 1
+                department_id: 3
             },
             {
                 doc_id: 19,
-                department_id: 0
+                department_id: 2
             },
             {
                 doc_id: 20,
-                department_id: 0
+                department_id: 1
+            },
+            {
+                doc_id: 21,
+                department_id: 1
             },
         ],
         User: [
@@ -321,6 +322,11 @@ export const useCounterStore = defineStore('counter', {
         next_del_id: 3,
         next_doc_id: 21,
         next_user_id: 3,
+
+        // данные для вывода документов/запросов/пользователей
+        lastn_docs_arr: [],
+        dep_docs_arr: [],
+        dep_docs_lastn_arr: []
     }),
     getters: {
         department_by_id: (state) => (id) => {
@@ -330,25 +336,25 @@ export const useCounterStore = defineStore('counter', {
                 }
             }
         },
-        lastn: (state) => (n) => {
-            return state.Document.slice(state.Document.length - n).reverse();
-        },
-        dep_docs: (state) => (id) => {
-            const doc_ids = state.DocumentDepartment.filter((item) => item.department_id == id).map((item) => item.doc_id)
-            return state.Document.filter((item) => doc_ids.includes(item.doc_id))
-        },
-        dep_lastn: (state) => (dep_id, n) => {
-            const items = state.DocumentDepartment.filter((item) => item.department_id == dep_id);
-            const doc_ids = items.slice(items.length - n).map((item) => item.doc_id);
-            return state.Document.filter((item) => doc_ids.includes(item.doc_id)).reverse();
-        },
-        path_by_doc_id: (state) => (doc_id) => {
-            for (const doc of state.Document){
-                if (doc.doc_id == doc_id){
-                    return '../../store/files/' + doc.filename
-                }
-            }
-        },
+        //lastn: (state) => (n) => {
+        //    return state.Document.slice(state.Document.length - n).reverse();
+        //},
+        //dep_docs: (state) => (id) => {
+        //    const doc_ids = state.DocumentDepartment.filter((item) => item.department_id == id).map((item) => item.doc_id)
+        //    return state.Document.filter((item) => doc_ids.includes(item.doc_id))
+        //},
+        //dep_lastn: (state) => (dep_id, n) => {
+        //    const items = state.DocumentDepartment.filter((item) => item.department_id == dep_id);
+        //    const doc_ids = items.slice(items.length - n).map((item) => item.doc_id);
+        //    return state.Document.filter((item) => doc_ids.includes(item.doc_id)).reverse();
+        //},
+        //path_by_doc_id: (state) => (doc_id) => {
+        //    for (const doc of state.Document){
+        //        if (doc.doc_id == doc_id){
+        //            return '../../store/files/' + filename
+        //        }
+        //    }
+        //},
         doc_search: (state) => (search_req) => {
             return state.Document.filter((item) => item.name.toLowerCase().includes(search_req.toLowerCase()) || item.filename.toLowerCase().includes(search_req.toLowerCase()))
         },
@@ -386,6 +392,7 @@ export const useCounterStore = defineStore('counter', {
                         password: password
                     }
                 })
+                this.my_password = ''
                 if (response.data[0] != null){
                     this.my_email = email
                     this.my_department_id = response.data[0].department_id
@@ -409,11 +416,72 @@ export const useCounterStore = defineStore('counter', {
 
         },
         exit() {
-            this.my_first_name = null;
-            this.my_second_name = null;
+            this.my_first_name = null
+            this.my_second_name = null
             this.my_third_name = null
             this.my_department_id = null
-            this.my_status = null;
+            this.my_status = null
+            this.my_email = ''
+            this.my_user_id = 0
+        },
+        async lastn(n) {
+            try{
+                const response = await axios.get('http://localhost:3001/api/lastn', {
+                    params: {
+                        n: n
+                    }
+                })
+                this.lastn_docs_arr = response.data
+            } catch (error) {
+                console.log('lastn error', error)
+            }
+        },
+        async dep_docs(department_id) {
+            try{
+                const response = await axios.get('http://localhost:3001/api/dep_docs', {
+                    params: {
+                        department_id: department_id
+                    }
+                })
+                this.dep_docs_arr = response.data
+            } catch (error) {
+                console.log('dep_docs error', error)
+            }
+        },
+        async dep_docs_lastn() {
+            try{
+                const response = await axios.get('http://localhost:3001/api/dep_docs_lastn')
+                this.dep_docs_lastn_arr = response.data
+            } catch (error) {
+                console.log('dep_docs error', error)
+            }
+        },
+        async add_new_document(){
+            const name = this.new_doc_name
+            const dep_ids = []
+            for(let dep of this.Department){
+                if(this.new_doc_deps.toLowerCase().includes(dep.name.toLowerCase())){
+                    dep_ids.push(dep.department_id)
+                }
+            }
+            if(dep_ids.length==0){
+                console.log('No departments')
+                throw Error('No departments')
+            }
+            const formData = new FormData()
+            formData.append('name', name)
+            formData.append('department_ids', dep_ids)
+            formData.append('file', this.new_doc_file)
+            try{
+                await axios.post('http://localhost:3001/api/upload_doc', formData, {
+                    headers: {
+                      'Content-Type': 'multipart/form-data'
+                    }
+                })
+            } catch (error) {
+                console.log('dep_docs error', error)
+            }
+            this.show_add_file_modal = false
         },
         delete_by_doc_id(doc_id) {
             this.Document = this.Document.filter((item) => item.doc_id != doc_id)
@@ -442,23 +510,23 @@ export const useCounterStore = defineStore('counter', {
         cancel_deletion(del_id){
             this.DeletionRequests = this.DeletionRequests.filter((item) => item.del_id != del_id)
         },
-        add_new_document() {
-            this.Document.push({
-                doc_id: this.next_doc_id,
-                name: this.new_doc_name,
-                filename: this.new_doc_name+'.docx'
-            })
-            this.next_doc_id++
-            for(let i in [0,1,2]){
-                if (this.new_doc_deps.includes(this.department_by_id(i))){
-                    this.DocumentDepartment.push({
-                        doc_id: this.new_doc_id,
-                        department_id: i
-                    })
-                }
-            }
-            this.show_add_file_modal = false;
-        },
+        //add_new_document() {
+        //    this.Document.push({
+        //        doc_id: this.next_doc_id,
+        //        name: this.new_doc_name,
+        //        filename: this.new_doc_name+'.docx'
+        //    })
+        //    this.next_doc_id++
+        //    for(let i in [0,1,2]){
+        //        if (this.new_doc_deps.includes(this.department_by_id(i))){
+        //            this.DocumentDepartment.push({
+        //                doc_id: this.new_doc_id,
+        //                department_id: i
+        //            })
+        //        }
+        //    }
+        //    this.show_add_file_modal = false;
+        //},
         delete_by_user_id(user_id) {
             this.User = this.User.filter((item) => item.user_id != user_id)
         },
@@ -511,6 +579,9 @@ export const useCounterStore = defineStore('counter', {
             this.new_user_email = ''
             this.new_user_password = ''
             this.new_user_department = ''
+        },
+        set_new_file(event){
+            this.new_doc_file = event.target.files[0]
         }
     }
 });
