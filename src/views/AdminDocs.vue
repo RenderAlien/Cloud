@@ -2,11 +2,12 @@
 import { useCounterStore } from '../../store/store';
 
 const store = useCounterStore();
+store.get_all_docs();
 </script>
 
 <template>
     <div class="header m-0">
-        <input type="text" class="search" placeholder="Поиск по документам..." v-model="store.current_search">
+        <input type="text" class="search" placeholder="Поиск по документам..." v-model="store.current_search" v-on:input="store.doc_search(store.current_search)">
         <RouterLink class="header-profile-button" to="/profile">{{ store.my_first_name + " " + store.my_second_name[0] + "." }}</RouterLink>
     </div>
       
@@ -17,7 +18,7 @@ const store = useCounterStore();
                     Добавить новый документ...
                 </div>
             </div>
-            <div v-for="doc in store.Document" class="item">
+            <div v-for="doc in store.all_docs" class="item">
                 <div class="item-text">
                     {{ doc.name }}
                 </div>
@@ -33,10 +34,10 @@ const store = useCounterStore();
     <div v-else class="page">
         <div class="content-text">Результат поиска:</div>
         <div class="item-container">
-          <div v-for="doc in store.doc_search(store.current_search)" class="item">
+          <div v-for="doc in store.search" class="item">
             <div class="item-text">{{ doc.name }}</div>
-            <a class="item-blue-button" :href="store.path_by_doc_id(doc.doc_id)" download>Скачать</a>
-            <div class="item-red-button" @click="store.request_deletion(doc.doc_id, store.my_user_id)">Удалить</div>
+            <a class="item-blue-button" @click="store.download_by_doc_id(doc.doc_id, doc.filename)" download>Скачать</a>
+            <div class="item-red-button" @click="store.delete_by_doc_id(doc.doc_id)">Удалить</div>
           </div>
         </div>
     </div>

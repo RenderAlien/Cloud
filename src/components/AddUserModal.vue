@@ -22,7 +22,7 @@ export default{
 
             <div style="display: flex; flex-direction: row; gap: 1.04167vw; margin-top: 3.05556vh;">
                 <div class="modal-button" @click="store.show_add_user_modal=false">Отмена</div>
-                <div class="modal-button" @click="store.add_new_user()">Добавить</div>
+                <div class="modal-button" @click="store.add_new_user();store.get_all_users()">Добавить</div>
             </div>
         </div>
     </div>

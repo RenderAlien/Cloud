@@ -2,11 +2,12 @@
 import { useCounterStore } from '../../store/store';
 
 const store = useCounterStore();
+store.get_all_users()
 </script>
 
 <template>
     <div class="header m-0">
-        <input type="text" class="search" placeholder="Поиск по пользователям..." v-model="store.current_search">
+        <input type="text" class="search" placeholder="Поиск по пользователям..." v-model="store.current_search" v-on:input="store.user_search(store.current_search)">
         <RouterLink class="header-profile-button" to="/profile">{{ store.my_first_name + " " + store.my_second_name[0] + "." }}</RouterLink>
     </div>
       
@@ -17,7 +18,7 @@ const store = useCounterStore();
                     Добавить нового пользователя...
                 </div>
             </div>
-            <div v-for="user in store.User" class="item">
+            <div v-for="user in store.user" :key="store.show_add_user_modal" class="item">
                 <div class="item-text">
                     {{ user.first_name + ' ' + user.second_name[0] + '. ' + user.third_name[0] + '.' }}
                 </div>
@@ -27,7 +28,7 @@ const store = useCounterStore();
                 <div class="item-blue-button" @click="store.current_user_id_to_change=user.user_id; store.show_change_user_modal=true">
                     Изменить
                 </div>
-                <div class="item-red-button" @click="store.delete_by_user_id(user.user_id)">
+                <div class="item-red-button" @click="store.delete_by_user_id(user.user_id);store.get_all_users();">
                     Удалить
                 </div>
             </div>
@@ -36,7 +37,7 @@ const store = useCounterStore();
     <div v-else>
         <div class="content-text">Результат поиска:</div>
         <div class="item-container">
-            <div v-for="user in store.user_search(store.current_search)" class="item">
+            <div v-for="user in store.user_search_arr" class="item">
                 <div class="item-text">
                     {{ user.first_name + ' ' + user.second_name[0] + '. ' + user.third_name[0] + '.' }}
                 </div>

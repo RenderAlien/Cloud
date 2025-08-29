@@ -44,7 +44,7 @@ export default {
     <div class="sidebar">
       <RouterLink class="logo" to="/">Облако</RouterLink>
       <RouterLink class="sidebar-button" to="/">Главная</RouterLink>
-      <RouterLink class="sidebar-button" to="/dep" @click="store.current_department_id = store.my_department_id">Мой отдел</RouterLink>
+      <RouterLink class="sidebar-button" to="/dep" @click="store.current_department_id = store.my_department_id;store.dep_docs(store.current_department_id)">Мой отдел</RouterLink>
       <RouterLink class="sidebar-button" to="/deps">Отделы</RouterLink>
       <div class="sidebar-button-add" @click="store.show_add_file_modal=true">Добавить</div>
     </div>
