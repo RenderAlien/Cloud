@@ -326,7 +326,8 @@ export const useCounterStore = defineStore('counter', {
         // данные для вывода документов/запросов/пользователей
         lastn_docs_arr: [],
         dep_docs_arr: [],
-        dep_docs_lastn_arr: []
+        dep_docs_lastn_arr: [],
+        search: [],
     }),
     getters: {
         department_by_id: (state) => (id) => {
@@ -355,9 +356,9 @@ export const useCounterStore = defineStore('counter', {
         //        }
         //    }
         //},
-        doc_search: (state) => (search_req) => {
-            return state.Document.filter((item) => item.name.toLowerCase().includes(search_req.toLowerCase()) || item.filename.toLowerCase().includes(search_req.toLowerCase()))
-        },
+        //doc_search: (state) => (search_req) => {
+        //    return state.Document.filter((item) => item.name.toLowerCase().includes(search_req.toLowerCase()) || item.filename.toLowerCase().includes(search_req.toLowerCase()))
+        //},
         doc_by_doc_id: (state) => (doc_id) => {
             for (const doc of state.Document){
                 if (doc.doc_id == doc_id){
@@ -479,9 +480,57 @@ export const useCounterStore = defineStore('counter', {
                     }
                 })
             } catch (error) {
-                console.log('dep_docs error', error)
+                console.log('add_new_document error', error)
             }
             this.show_add_file_modal = false
+        },
+        async download_by_doc_id(doc_id, filename){
+            try{
+                const response = await axios.get('http://localhost:3001/api/download_by_doc_id', {
+                    responseType: 'blob',
+                    params:{
+                        doc_id: doc_id
+                    }
+                });
+                
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                
+                link.setAttribute('download', filename);
+                document.body.appendChild(link);
+                link.click();
+                
+                link.remove();
+                window.URL.revokeObjectURL(url);
+
+            } catch (error) {
+                console.log('download_by_doc_id error', error)
+            }
+        },
+        async doc_search(search_req){
+            try{
+                const response = await axios.get('http://localhost:3001/api/doc_search', {
+                    params: {
+                        search_req: search_req
+                    }
+                })
+                this.search = response.data
+            } catch (error) {
+                console.log('dep_docs error', error)
+            }
+        },
+        async request_deletion(doc_id, user_id){
+            try{
+                const response = await axios.get('http://localhost:3001/api/request_deletion', {
+                    params: {
+                        doc_id: doc_id,
+                        user_id: user_id
+                    }
+                })
+            } catch (error) {
+                console.log('dep_docs error', error)
+            }
         },
         delete_by_doc_id(doc_id) {
             this.Document = this.Document.filter((item) => item.doc_id != doc_id)
@@ -496,17 +545,17 @@ export const useCounterStore = defineStore('counter', {
             }
             this.delete_by_doc_id(this.DeletionRequests[i].doc_id)
         },
-        request_deletion(doc_id, user_id) {
-            this.DeletionRequests.push(
-                {
-                    del_id: this.next_del_id,
-                    doc_id: doc_id,
-                    user_id: user_id
-                }
-            )
-            this.next_del_id++
-            console.log(this.DeletionRequests)
-        },
+        //request_deletion(doc_id, user_id) {
+        //    this.DeletionRequests.push(
+        //        {
+        //            del_id: this.next_del_id,
+        //            doc_id: doc_id,
+        //            user_id: user_id
+        //        }
+        //    )
+        //    this.next_del_id++
+        //    console.log(this.DeletionRequests)
+        //},
         cancel_deletion(del_id){
             this.DeletionRequests = this.DeletionRequests.filter((item) => item.del_id != del_id)
         },
@@ -580,6 +629,7 @@ export const useCounterStore = defineStore('counter', {
             this.new_user_password = ''
             this.new_user_department = ''
         },
+        // получение файла фронтендом
         set_new_file(event){
             this.new_doc_file = event.target.files[0]
         }

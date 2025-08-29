@@ -21,7 +21,7 @@ const store = useCounterStore();
                 <div class="item-text">
                     {{ doc.name }}
                 </div>
-                <a class="item-blue-button" :href="store.path_by_doc_id(doc.doc_id)" download>
+                <a class="item-blue-button" @click="store.download_by_doc_id(doc.doc_id, doc.filename)" download>
                     Скачать
                 </a>
                 <div class="item-red-button" @click="store.delete_by_doc_id(doc.doc_id)">

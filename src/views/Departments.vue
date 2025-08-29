@@ -14,7 +14,7 @@ store.dep_docs_lastn()
                 <div class="item-text">
                     {{ doc.name }}
                 </div>
-                <a class="item-blue-button" :href="'../../store/files/' + doc.filename" download>
+                <a class="item-blue-button" @click="store.download_by_doc_id(doc.doc_id, doc.filename)" download>
                     Скачать
                 </a>
                 <div class="item-red-button" @click="store.request_deletion(doc.doc_id, store.my_user_id)">

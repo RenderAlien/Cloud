@@ -20,9 +20,9 @@ store.dep_docs(store.my_department_id)
             <div class="item-text">
                 {{ doc.name }}
             </div>
-            <a :href="'../../store/files/' + doc.filename" class="item-blue-button" download>
+            <div @click="store.download_by_doc_id(doc.doc_id, doc.filename)" class="item-blue-button" download>
                 Скачать
-            </a>
+            </div>
             <div class="item-red-button" @click="store.request_deletion(doc.doc_id, store.my_user_id)">
                 Удалить
             </div>
@@ -34,9 +34,9 @@ store.dep_docs(store.my_department_id)
             <div class="item-text">
                 {{ doc.name }}
             </div>
-            <a :href="'../../store/files/' + doc.filename" class="item-blue-button" download>
+            <div @click="store.download_by_doc_id(doc.doc_id, doc.filename)" class="item-blue-button" download>
                 Скачать
-            </a>
+            </div>
             <div class="item-red-button" @click="store.request_deletion(doc.doc_id, store.my_user_id)">
                 Удалить
             </div>

@@ -52,7 +52,7 @@ export default {
     <div class="content">
 
       <div class="header m-0">
-        <input type="text" class="search" placeholder="Поиск..." v-model="store.current_search">
+        <input type="text" class="search" placeholder="Поиск..." v-model="store.current_search" v-on:input="store.doc_search(store.current_search)">
         <RouterLink class="header-profile-button" to="/profile">{{ store.my_first_name + " " + store.my_second_name[0] + "." }}</RouterLink>
       </div>
 
@@ -62,9 +62,9 @@ export default {
       <div v-else class="page">
         <div class="content-text">Результат поиска:</div>
         <div class="item-container">
-          <div v-for="doc in store.doc_search(store.current_search)" class="item">
+          <div v-for="doc in store.search" class="item">
             <div class="item-text">{{ doc.name }}</div>
-            <a class="item-blue-button" :href="store.path_by_doc_id(doc.doc_id)" download>Скачать</a>
+            <a class="item-blue-button" @click="store.download_by_doc_id(doc.doc_id, doc.filename)" download>Скачать</a>
             <div class="item-red-button" @click="store.request_deletion(doc.doc_id, store.my_user_id)">Удалить</div>
           </div>
         </div>

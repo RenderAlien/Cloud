@@ -3,6 +3,7 @@ import cors from 'cors';
 import pkg from 'pg';
 import { hashSync } from "bcryptjs";
 import multer from 'multer';
+import fs from 'fs';
 import path from 'path';
 const {Pool} = pkg;
 
@@ -140,6 +141,63 @@ app.post('/api/upload_doc', upload.single('file'), async (req, res) => {
   
   res.sendStatus(200);
 });
+
+app.get('/api/download_by_doc_id', async (req, res) => {
+  try {
+    const doc_id = parseInt(req.query.doc_id)
+    const result = await pool.query(
+      'select * from public.Document where doc_id = $1',
+      [doc_id]
+    )
+    const filename = result.rows[0].filename
+    console.log(filename)
+    const filePath = 'files/' + filename
+    
+    res.setHeader('Content-Disposition', `attachment; filename="${String(doc_id)+path.extname(filename)}"`);
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+
+    const fileStream = fs.createReadStream(filePath);
+    fileStream.pipe(res);
+
+  } catch (err) {
+    console.log(err.message)
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/doc_search', async (req, res) => {
+  try {
+    const search_req = req.query.search_req
+    const result = await pool.query(
+      "select distinct doc_id, name, filename from (select d.doc_id, d.name, d.filename from public.Document d join public.DocumentDepartment dd on d.doc_id = dd.doc_id join public.Department dep on dd.department_id = dep.department_id where strpos(lower(d.name), $1) <> 0 or strpos(lower(dep.name), $1) <> 0) order by doc_id",
+      [search_req]
+    );
+    console.log(result.rows)
+    res.json(result.rows);
+  } catch (err) {
+    console.log(err.message)
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/request_deletion', async (req, res) => {
+  try {
+    const doc_id = parseInt(req.query.doc_id)
+    const user_id = parseInt(req.query.user_id)
+    console.log(doc_id, user_id)
+    const result = await pool.query(
+      "insert into public.Deletion_requests values (default, $1, $2);",
+      [doc_id, user_id]
+    );
+    console.log(result.rows)
+  } catch (err) {
+    console.log(err.message)
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+
 
 
 
